@@ -15,16 +15,10 @@
     <main class="row">
         <aside class="col-4">
             <h2 class="col-12">Search for a City</h2>
-            <input class="col-12" type="text">
-            <button class="col-12 my-3 btn btn-primary">Search</button>
-                <button class="col-12 my-2 btn btn-secondary">B1</button>
-                <button class="col-12 my-2 btn btn-secondary">B2</button>
-                <button class="col-12 my-2 btn btn-secondary">B3</button>
-                <button class="col-12 my-2 btn btn-secondary">B4</button>
-                <button class="col-12 my-2 btn btn-secondary">B5</button>
-                <button class="col-12 my-2 btn btn-secondary">B6</button>
-                <button class="col-12 my-2 btn btn-secondary">B7</button>
-                <button class="col-12 my-2 btn btn-secondary">B8</button>
+            <input class="col-12" id="searchInfo" type="text">
+            <button class="col-12 my-3 btn btn-primary" id="searchBtn">Search</button>
+            <div class="searchHistory">
+            </div>
         </aside>
         <section class="col-8">
             <article class="col-12">
@@ -76,6 +70,7 @@
             </section>
         </section>
     </main>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="./assets/js/script.js"></script>
 </body>
 </html>
