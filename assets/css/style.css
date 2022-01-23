@@ -3,3 +3,12 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+#city {
+    font-size: 3.5rem;
+    margin: auto, 0px;
+}
+
+ #icon {
+    height: 70px;
+} 
