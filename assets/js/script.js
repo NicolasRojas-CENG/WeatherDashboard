@@ -40,7 +40,6 @@ function saveSearchHistory(id, text) {
 }
 
 var cityName = "Toronto";
-console.log(cityName);
 
 function getData(cityName) {
     var key = '37acb59a15c51a8110db7c90bdf97dbf';
@@ -49,14 +48,12 @@ function getData(cityName) {
         // request was successful
         if (response.ok) {
             response.json().then(function(data) {
-                console.log(data);
                 showCityData(data);
                 var url2 = "https://api.openweathermap.org/data/2.5/onecall?lat="+ data.coord.lat + "&lon=" + data.coord.lon + "&units=metric&appid=" + key;
                 fetch(url2 ).then(function(response) {
                     // request was successful
                     if (response.ok) {
                         response.json().then(function(data) {
-                        console.log(data);
                         showWeatherData(data);
                         forcastData(data);
                     });
@@ -95,11 +92,11 @@ function forcastData(data) {
 
 setInterval(function () {
     getData(cityName);
-}, (1000 * 60) * 60);
+}, (1000 * 60)* 60);
 
 getData(cityName)
 
-cityName = $("#searchBtn").on("click", function(){
+$("#searchBtn").on("click", function(){
     var search = $("#searchInfo").val();
     if (!search){
         alert("Please enter the name of a city.");
@@ -107,9 +104,7 @@ cityName = $("#searchBtn").on("click", function(){
         updateSearchHistory();
         getData(search);
     }
-    console.log(search);
-    return search;
+    cityName = search;
 });
 
 loadSearchHistory();
-console.log(cityName);
