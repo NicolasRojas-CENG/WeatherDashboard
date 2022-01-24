@@ -1,4 +1,8 @@
-var searchHistoryId = 0
+var searchHistoryId = 0;
+var cityName = "Mississauga";
+var key = '37acb59a15c51a8110db7c90bdf97dbf';
+var url1 = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + ',ca&units=metric&APPID=' + key;
+
 
 function loadSearchHistory() {
     var size = JSON.parse(localStorage.getItem("size"));
@@ -13,6 +17,34 @@ function loadSearchHistory() {
         searchHistoryId++;
     }
 }
+
+loadSearchHistory();
+
+function getInitialData(cityName) {
+    var url1 = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + ',ca&units=metric&APPID=' + key;
+    fetch(url1).then(function(response) {
+        // request was successful
+        if (response.ok) {
+            response.json().then(function(data) {
+                showCityData(data);
+                var url2 = "https://api.openweathermap.org/data/2.5/onecall?lat="+ data.coord.lat + "&lon=" + data.coord.lon + "&units=metric&appid=" + key;
+                fetch(url2 ).then(function(response) {
+                    // request was successful
+                    if (response.ok) {
+                        response.json().then(function(data) {
+                            showWeatherData(data);
+                            forcastData(data);
+                        });
+                    }
+                });
+            });
+        } else {
+            alert("Error: " + response.statusText);
+        }
+    });
+}
+
+getInitialData(cityName);
 
 function updateSearchHistory() {
     var historyButton = $("<button>");
@@ -39,10 +71,7 @@ function saveSearchHistory(id, text) {
     localStorage.setItem("size", JSON.stringify(searchHistoryId));
 }
 
-var cityName = "Toronto";
-
 function getData(cityName) {
-    var key = '37acb59a15c51a8110db7c90bdf97dbf';
     var url1 = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + ',ca&units=metric&APPID=' + key;
     fetch(url1).then(function(response) {
         // request was successful
@@ -54,8 +83,10 @@ function getData(cityName) {
                     // request was successful
                     if (response.ok) {
                         response.json().then(function(data) {
-                        showWeatherData(data);
-                        forcastData(data);
+                            console.log(data);
+                            showWeatherData(data);
+                            forcastData(data);
+                            updateSearchHistory();
                     });
                     } else {
                         alert("Error: " + response.statusText);
@@ -76,17 +107,27 @@ function showCityData(data) {
 
 function showWeatherData(data) {
     $("#temp").text("Temp: " + data.current.temp + "C");
-    $("#wind").text("Wind: " + data.current.wind_speed + " Km/H");
+    $("#wind").text("Wind: " + data.current.wind_speed + " Km/h");
     $("#humidity").text("Humidity: " + data.current.humidity + "%");
     $("#index").text("UV index: " + data.current.uvi);
+    if (data.current.uvi < 3){
+        $("#index").addClass("bg-favourable");
+    } else if (data.current.uvi < 6) {
+        $("#index").addClass("bg-moderate");
+    }
+    else {
+        $("#index").addClass("bg-severe");
+    }
+
 }
 
 function forcastData(data) {
     for (var i = 0; i < 5; i++){
         $("#date" + i).text(moment().add(i + 1, 'd').format(" DD/MM/YYYY"));
+        $("#img" + i).attr("src", "http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + "@2x.png");
         $("#temp" + i).text("Temp: " + data.daily[i].temp.day + "C");
-        $("#wind" + i).text("Wind: " + data.daily[i].wind_speed + "Km/H");
-        $("#hum" + i).text("Humidity: " + data.daily[i].humidity + "%");
+        $("#wind" + i).text("Wind: " + data.daily[i].wind_speed + "Km/h");
+        $("#hum" + i).text("Hum: " + data.daily[i].humidity + "%");
     }
 }
 
@@ -94,17 +135,16 @@ setInterval(function () {
     getData(cityName);
 }, (1000 * 60)* 60);
 
-getData(cityName)
-
 $("#searchBtn").on("click", function(){
     var search = $("#searchInfo").val();
     if (!search){
         alert("Please enter the name of a city.");
     } else {
-        updateSearchHistory();
         getData(search);
+        cityName = search;
     }
-    cityName = search;
 });
 
-loadSearchHistory();
+$(".searchHistory").on("click", "button", function(){
+    getInitialData($(this).text());
+});

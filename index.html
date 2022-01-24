@@ -8,20 +8,20 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Weather Dashboard</title>
 </head>
-<body class="vh-100 vw-100">
+<body>
     <header>
         <h1 class="bg-primary text-white text-center py-3">Weather Dashboard</h1>
     </header>
-    <main class="row">
-        <aside class="col-4">
+    <main class="row mw-100">
+        <aside class="col-12 col-lg-3 my-3" id="searchScreen">
             <h2 class="col-12">Search for a City</h2>
-            <input class="col-12" id="searchInfo" type="text">
+            <input class="col-12 input-group-text" id="searchInfo" type="text">
             <button class="col-12 my-3 btn btn-primary" id="searchBtn">Search</button>
             <div class="searchHistory">
             </div>
         </aside>
-        <section class="col-8">
-            <article class="col-12 bg-secondary">
+        <section class="col-12 col-lg-9 secHalf" >
+            <article class="col-12" id="cityDataScreen">
                 <div class="row">
                     <h2 class="col-auto"id="city"></h2>
                     <img class="col-auto" id="icon" src="" alt="">
@@ -29,40 +29,40 @@
                 <p id="temp"></p>
                 <p id="wind"></p>
                 <p id="humidity"></p>
-                <p id="index"></p>
+                <p class="col-8 col-md-4 col-lg-3" id="index"></p>
             </article>
-            <section class=" col-12">
-                <h3 class="col-12">5-Day Weather Forcast:</h3>
-                <div class="col-12 d-flex justify-content-between">
-                    <article class="col-2 card-body bg-dark text-white">
+            <section class=" col-12 my-3 pb-3" id="forcastDataScreen">
+                <h2 class="col-12">5-Day Weather Forcast:</h2>
+                <div class="col-12" id="forcastCards">
+                    <article class="col-12 col-lg-2 card-body cardContainer text-white my-3">
                         <h4 class="card-title" id="date0"></h4>
                         <img class="card-image" id="img0" src="" alt=""></img>
                         <p class="card-text" id="temp0"></p>
                         <p class="card-text" id="wind0"></p>
                         <p class="card-text" id="hum0"></p>
                     </article>
-                    <article class="col-2 card-body bg-dark text-white">
+                    <article class="col-12 col-lg-2 card-body cardContainer text-white my-3">
                         <h4 class="card-title" id="date1"></h4>
                         <img class="card-image" id="img1" src="" alt=""></img>
                         <p class="card-text" id="temp1"></p>
                         <p class="card-text" id="wind1"></p>
                         <p class="card-text" id="hum1"></p>
                     </article>
-                    <article class="col-2 card-body bg-dark text-white">
+                    <article class="col-12 col-lg-2 card-body cardContainer text-white my-3">
                         <h4 class="card-title" id="date2"></h4>
                         <img class="card-image" id="img2" src="" alt=""></img>
                         <p class="card-text" id="temp2"></p>
                         <p class="card-text" id="wind2"></p>
                         <p class="card-text" id="hum2"></p>
                     </article>
-                    <article class="col-2 card-body bg-dark text-white">
+                    <article class="col-12 col-lg-2 card-body cardContainer text-white my-3">
                         <h4 class="card-title" id="date3"></h4>
                         <img class="card-image" id="img3" src="" alt=""></img>
                         <p class="card-text" id="temp3"></p>
                         <p class="card-text" id="wind3"></p>
                         <p class="card-text" id="hum3"></p>
                     </article>
-                    <article class="col-2 card-body bg-dark text-white">
+                    <article class="col-12 col-lg-2 card-body cardContainer text-white my-3">
                         <h4 class="card-title" id="date4"></h4>
                         <img class="card-image" id="img4" src="" alt=""></img>
                         <p class="card-text" id="temp4"></p>
