@@ -21,35 +21,6 @@ function loadSearchHistory() {
 
 loadSearchHistory();
 
-// Function to show initial data.
-// This is its own function as the fetch is for a fixed city and as to not update the
-// search history with the fix city.
-function getInitialData(cityName) {
-    var url1 = 'https://api.openweathermap.org/data/2.5/weather?q=Mississauga,ca&units=metric&APPID=' + key;
-    fetch(url1).then(function(response) {
-        // request was successful
-        if (response.ok) {
-            response.json().then(function(data) {
-                showCityData(data);
-                var url2 = "https://api.openweathermap.org/data/2.5/onecall?lat="+ data.coord.lat + "&lon=" + data.coord.lon + "&units=metric&appid=" + key;
-                fetch(url2 ).then(function(response) {
-                    // request was successful
-                    if (response.ok) {
-                        response.json().then(function(data) {
-                            showWeatherData(data);
-                            forcastData(data);
-                        });
-                    }
-                });
-            });
-        } else {
-            alert("Error: " + response.statusText);
-        }
-    });
-}
-
-getInitialData(cityName);
-
 //Function used to update the search history with a new entry.
 //8 entries is the max.
 function updateSearchHistory() {
@@ -152,7 +123,7 @@ function forcastData(data) {
 }
 
 //Function used to update the current searched city's weather information.
-//This is its own function as it is not a fixed city, but as not to update the search history.
+//This is its own function as not to update the search history.
 function updateData(cityName) {
     var url1 = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName[0] + ',' + cityName[1] + '&units=metric&APPID=' + key;
     fetch(url1).then(function(response) {
@@ -178,6 +149,8 @@ function updateData(cityName) {
         }
     });
 }
+
+updateData(cityName);
 
 //Used to update data every hour.
 setInterval(function () {
